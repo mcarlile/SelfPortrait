@@ -17,8 +17,8 @@ import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.providers.*;
-
 UnfoldingMap map;
+
 
 Location location1 = new Location(37.950795, -91.711944);
 Location location2 = new Location(33.986865, -118.47361);
@@ -69,15 +69,14 @@ Location location44 = new Location(34.025766, -118.294639);
 Location [] locations = new Location[44];
 
 
-
-
 boolean move = false;
 int locationToDisplay = 0;
-int zoomLevel = 10;
+int zoomLevel = 15;
 
 void setup () {
-  size(1280, 720, P2D);
-  map = new UnfoldingMap(this);
+  size(800, 400, P2D);
+  map = new UnfoldingMap(this, new Microsoft.AerialProvider());
+
   MapUtils.createDefaultEventDispatcher(this, map);
 
   map.zoomAndPanTo(location1, zoomLevel);
@@ -181,7 +180,7 @@ void draw () {
 
 
 
-  map.addMarkers(marker1, marker2, marker3, marker4, marker5, marker6, marker7, marker8, marker9, marker10, marker11, marker12, marker13, marker14, marker14, marker15, marker16, marker17, marker18, marker19, marker20, marker21, marker22, marker23, marker24, marker25, marker26, marker27, marker28, marker29, marker30, marker31, marker32, marker33, marker34, marker35, marker36, marker37, marker38, marker39, marker40, marker41, marker42, marker43, marker44);
+  //map.addMarkers(marker1, marker2, marker3, marker4, marker5, marker6, marker7, marker8, marker9, marker10, marker11, marker12, marker13, marker14, marker14, marker15, marker16, marker17, marker18, marker19, marker20, marker21, marker22, marker23, marker24, marker25, marker26, marker27, marker28, marker29, marker30, marker31, marker32, marker33, marker34, marker35, marker36, marker37, marker38, marker39, marker40, marker41, marker42, marker43, marker44);
 }
 
 void mousePressed() {
