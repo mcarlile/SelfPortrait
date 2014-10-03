@@ -72,12 +72,17 @@ Location [] locations = new Location[44];
 boolean move = false;
 int locationToDisplay = 0;
 int zoomLevel = 15;
+PImage img;
+int savedTime;
+int totalTime = 500;
 
 void setup () {
-  size(800, 400, P2D);
-  map = new UnfoldingMap(this, new Microsoft.AerialProvider());
-
+  size(600, 896, P2D);
+  //  map = new UnfoldingMap(this, new Microsoft.AerialProvider(), 0, 0, ((width/4)*3), ((height/4)*3));
+  map = new UnfoldingMap(this, 0, 0, width, height, new Microsoft.AerialProvider());
+  background (0);
   MapUtils.createDefaultEventDispatcher(this, map);
+  img = loadImage("mask.png");
 
   map.zoomAndPanTo(location1, zoomLevel);
   float maxPanningDistance = 10000; // in km
@@ -127,6 +132,7 @@ void setup () {
   locations[41] = location42;
   locations[42] = location43;
   locations[43] = location44;
+  savedTime = millis();
 }
 
 void draw () {
@@ -177,6 +183,14 @@ void draw () {
   SimplePointMarker marker43 = new SimplePointMarker(location43);
   SimplePointMarker marker44 = new SimplePointMarker(location44);
 
+  image(img, 0, 0);
+  // Calculate how much time has passed
+  int passedTime = millis() - savedTime;
+  // Has five seconds passed?
+  if (passedTime > totalTime) {
+    zoomToNewLocation();
+    savedTime = millis(); // Save the current time to restart the timer!
+  }
 
 
 
@@ -194,7 +208,7 @@ void zoomToNewLocation () {
     locationToDisplay = 0;
   }
 
-  map.zoomAndPanTo(locations[locationToDisplay], zoomLevel);
+  map.zoomAndPanTo(locations[locationToDisplay], zoomLevel); 
   println("zoomed to location: " + locations[locationToDisplay]);
 }
 
